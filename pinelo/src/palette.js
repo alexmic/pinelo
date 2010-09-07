@@ -46,6 +46,9 @@ var Palette = function() {
 
     var brushPrototype = new Brush();
 
+	// Brush list. Ant new brushes should be included in this list to get loaded.
+	var BRUSH_LIST = ["web", "circles", "bubbles", "cocentric", "thorns"];
+
     // The brush collection. Contains the default and the eraser on init.
     var brushes = {
         
@@ -80,19 +83,51 @@ var Palette = function() {
 
         // Eraser.
         eraser: make(brushPrototype, {
+        	prevX: null,
+            prevY: null,
+            
             stroke: function(x, y) {
-                ctx.fillStyle = 'rgba(250,242,212,1)';
-                ctx.beginPath();
-                ctx.arc(x, y, 12, 0, Math.PI * 2, true);
-                ctx.closePath();
-                ctx.fill();
+                ctx.lineWidth = 30;
+                ctx.strokeStyle = "rgba(236,235,212,1)";
+
+                if (this.prevX === null && this.prevY === null) {
+                    this.prevX = x;
+                    this.prevY = y;
+                }
+                else {
+                    ctx.beginPath();
+                    ctx.moveTo(this.prevX, this.prevY);
+                    ctx.lineTo(x, y);
+                    ctx.stroke();
+                    this.prevX = x;
+                    this.prevY = y;
+                }
+            },
+            
+            onMouseUp: function(e){
+                this.prevX = null;
+                this.prevY = null;
             }
         })
     };
     
     //Initialize to default brush.
     var _brush = brushes.def;
-
+	
+	//////////////////
+	/// PUBLIC API ///
+	//////////////////
+	
+	//Init method. Loads available brushes.
+	this.init = function(){
+		for (var b in BRUSH_LIST){
+			if (BRUSH_LIST.hasOwnProperty(b)){
+				$("body").append($("<script>").attr("src", "src/brushes/" + BRUSH_LIST[b] + ".js").attr("type", "text/javascript"));
+			}
+		}
+		return this;
+	};
+	
     // Extends the brush collection.
     this.extend = function(newBrushes) {
         for (var brush in newBrushes) {

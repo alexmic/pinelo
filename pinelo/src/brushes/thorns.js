@@ -2,7 +2,6 @@
  *   Black faded-out thorns with hints of fuchsia.
  *   Author: Alex Michael
  */
-
 palette.extend({
 	thorns: {
             stroke: function(x, y) {

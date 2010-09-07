@@ -2,7 +2,6 @@
  *   Bubbles with variant size depending on speed of mouse move.
  *   Author: Ben Van Enckevort
  */
-
 palette.extend({
     bubbles: {
             prev: null,

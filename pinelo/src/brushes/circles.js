@@ -20,10 +20,10 @@ palette.extend({
                     M.floor(
                     M.sqrt(
                     M.pow(dx, 2) + M.pow(dy, 2))), 50);
-                    var alpha = (r * 5) / 50;
+                    var alpha = (r * 3) / 50;
                     ctx.fillStyle = 'rgba(145,66,88,' + alpha + ')';
                     ctx.beginPath();
-                    ctx.arc(this.prevX, this.prevY, r * 2, 0, Math.PI * 2, true);
+                    ctx.arc(this.prevX, this.prevY, r, 0, Math.PI * 2, true);
                     ctx.closePath();
                     ctx.fill();
                     this.prevX = x;
