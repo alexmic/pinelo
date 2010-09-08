@@ -1,24 +1,16 @@
 /*
- //////////////////////////////////////////
- // Pinelo - Painter and procedural art. //
- // Version 1.0                          //
- //////////////////////////////////////////
-*/
-
-
-/*
- * Palette.js 
+ * palette.js 
  *
  * The palette. Includes the brush collection, and methods to extend it. Contains hooks for mouse events.
  *
  */
 
 var Palette = function() {
-
+	
     // ---------------------------------
     
     // Generic Brush prototype.
-    var Brush = function() {
+    var Brush = function() {0
 		
         this._super = this;
 		
@@ -27,8 +19,8 @@ var Palette = function() {
         };
 		
         this.load = function(){
-	    ctx.strokeStyle = 'rgba(0,0,0,0.7)';
-	};
+	    	ctx.strokeStyle = 'rgba(0,0,0,0.7)';
+		};
 		
         this.unload = function() {
 	    Util.context.reset();
@@ -87,7 +79,7 @@ var Palette = function() {
             
             stroke: function(x, y) {
                 ctx.lineWidth = 30;
-                ctx.strokeStyle = "rgba(236,235,212,1)";
+                ctx.strokeStyle = BACKGROUND_COLOR;
 
                 if (this.prevX === null && this.prevY === null) {
                     this.prevX = x;

@@ -5,3 +5,36 @@ body{
 #c, #c:hover, #c:active{
 	cursor: crosshair;
 }
+
+.toolbox{
+	position:absolute;
+	height: 30px;
+	padding: 2px;
+	width:100%;
+	-webkit-border-radius: 0px 0px 5px 5px;
+	-moz-border-radius: 0px 0px 5px 5px;
+	border-radius: 0px 0px 5px 5px;
+	top: 0px;
+	padding: 8px 0px 2px 0px;
+}
+
+#tools-shadow{
+	z-index: 998;
+	background-color: #C0BDA6;
+	top:2px;
+	left:0px;
+}
+
+#tools{
+	z-index: 999;
+	left:0;
+}
+
+	#tools div.toolbox-ph{
+		list-style-image: none;
+		list-style-type: none;
+		margin:0px 3px 0px 3px;
+		padding:0px 3px 0px 3px;
+		position:relative;
+		float:left;
+	}	

@@ -1,13 +1,34 @@
 <html>
 	<head>
+		<link rel="stylesheet" href="css/jquery-ui-1.8.4.custom.css" type="text/css" />
 		<link rel="stylesheet" href="css/styles.css" type="text/css" />
+
 	</head>
 	<body>
+		<div class="toolbox" id="tools">
+			<div class="toolbox-ph" id="brushes">
+		
+			</div>
+			<div class="toolbox-ph" id="eraser">
+		
+			</div>
+			<div style="float:right; position:relative;right:4px">
+				<button style="margin:0" id="reset" class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all">
+   					<span style="padding:0; margin:0" class="ui-button-text">reset</span>
+				</button>
+				<button id="export" style="margin:0" class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all">
+   					<span style="padding:0; margin:0" class="ui-button-text">export</span>
+				</button>
+			</div>
+			
+		</div>
 		<canvas style="position:absolute; top:0; left:0" id="c"></canvas>
 		<script type="text/javascript" src="lib/jquery.min.js"></script>
-		<script type="text/javascript" src="src/brush_includes.js"></script>
+		<script type="text/javascript" src="lib/jquery-ui-1.8.4.custom.min.js"></script>
+		<script type="text/javascript" src="src/includes/brush_includes.js"></script>
 		<script type="text/javascript" src="src/util.js"></script>
 		<script type="text/javascript" src="src/palette.js"></script>
+		<script type="text/javascript" src="src/menu.js"></script>
 		<script type="text/javascript" src="src/pinelo.js"></script>
 	</body>
 </html>
