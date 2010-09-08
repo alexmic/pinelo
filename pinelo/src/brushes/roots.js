@@ -26,7 +26,7 @@ palette.extend({
 	                }
 	            }
 	            if (g_l > grown){
-	                window.setTimeout(grow, `00);
+	                window.setTimeout(grow, 100);
 	            }
 	        }
 	            
