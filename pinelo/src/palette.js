@@ -166,7 +166,7 @@ var Palette = function() {
     };
 
     this.setEraser = function(e) {
-        _brush = brushes.eraser;
+        this.setBrush("eraser");
     };
 
 };
