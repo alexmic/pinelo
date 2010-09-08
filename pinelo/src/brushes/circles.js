@@ -4,6 +4,7 @@
  */
 
 palette.extend({
+   
     circles: {
             prevX: null,
             prevY: null,
@@ -14,25 +15,25 @@ palette.extend({
                     this.prevY = y;
                 }
                 else {
-                    var dx = x - this.prevX;
-                    var dy = y - this.prevY;
-                    var r = M.min(
-                    M.floor(
-                    M.sqrt(
-                    M.pow(dx, 2) + M.pow(dy, 2))), 50);
-                    var alpha = (r * 3) / 50;
-                    ctx.fillStyle = 'rgba(145,66,88,' + alpha + ')';
-                    ctx.beginPath();
-                    ctx.arc(this.prevX, this.prevY, r, 0, Math.PI * 2, true);
-                    ctx.closePath();
-                    ctx.fill();
+                    var r = M.min(M.floor(Util.math.d(x, this.prevX, y, this.prevY)), 50);
+                    var alpha = (r * 1.5) / 50;
+                    ctx.fillStyle = 'rgba(22,22,22,' + alpha + ')';
+                    Util.draw.circle(this.prevX, this.prevY, r, true);
                     this.prevX = x;
                     this.prevY = y;
                 }
             },
+            
             onMouseUp: function(e) {
                 this.prevX = null;
                 this.prevY = null;
+            },
+            
+            unload: function(){
+            	this._super.unload();
+            	this.prevX = null;
+            	this.prevY = null;
             }
         }   
+
 });

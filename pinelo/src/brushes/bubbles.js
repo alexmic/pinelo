@@ -3,6 +3,7 @@
  *   Author: Ben Van Enckevort
  */
 palette.extend({
+   
     bubbles: {
             prev: null,
             max: 0,
@@ -14,13 +15,8 @@ palette.extend({
                     var dx = (p.x - x) / 2,
                         dy = (p.y - y) / 2,
                         dr = Math.sqrt(dx * dx + dy * dy);
-
-                    ctx.beginPath();
-                    ctx.arc(x + dx, y + dy, dr, 0, 2 * Math.PI, true);
-                    ctx.fill();
-                    ctx.stroke();
+					Util.draw.circle(x + dx, y + dy, dr, true);
                 }
-
                 this.prev = {
                     x: x,
                     y: y
@@ -28,7 +24,14 @@ palette.extend({
             },
 
             onMouseUp: function(e) {
-                this.prev = {};
+                this.prev = null;
+            },
+            
+            unload: function(){
+            	this._super.unload();
+            	this.max  = 0;
+            	this.prev = null;
             }
         }
+
 });

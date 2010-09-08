@@ -19,13 +19,19 @@ var Palette = function() {
     
     // Generic Brush prototype.
     var Brush = function() {
-
+		
+		this._super = this;
+		
         this.stroke = function(x, y) {
 
         };
-
+		
+		this.load = function(){
+			ctx.strokeStyle = 'rgba(0,0,0,0.7)';
+		};
+		
         this.unload = function() {
-
+			Util.context.reset();
         };
 
         this.onMouseUp = function(e) {
@@ -46,9 +52,6 @@ var Palette = function() {
 
     var brushPrototype = new Brush();
 
-	// Brush list. Ant new brushes should be included in this list to get loaded.
-	var BRUSH_LIST = ["web", "circles", "bubbles", "cocentric", "thorns"];
-
     // The brush collection. Contains the default and the eraser on init.
     var brushes = {
         
@@ -59,17 +62,13 @@ var Palette = function() {
 
             stroke: function(x, y) {
                 ctx.lineWidth = 1;
-                ctx.strokeStyle = "rgba(0,0,0,0.5)";
 
                 if (this.prevX === null && this.prevY === null) {
                     this.prevX = x;
                     this.prevY = y;
                 }
                 else {
-                    ctx.beginPath();
-                    ctx.moveTo(this.prevX, this.prevY);
-                    ctx.lineTo(x, y);
-                    ctx.stroke();
+                	Util.draw.line(this.prevX, x, this.prevY, y);
                     this.prevX = x;
                     this.prevY = y;
                 }
@@ -95,10 +94,7 @@ var Palette = function() {
                     this.prevY = y;
                 }
                 else {
-                    ctx.beginPath();
-                    ctx.moveTo(this.prevX, this.prevY);
-                    ctx.lineTo(x, y);
-                    ctx.stroke();
+                    Util.draw.line(this.prevX, x, this.prevY, y);
                     this.prevX = x;
                     this.prevY = y;
                 }
@@ -118,11 +114,11 @@ var Palette = function() {
 	/// PUBLIC API ///
 	//////////////////
 	
-	//Init method. Loads available brushes.
+	//Init method. Loads available brushes from brush_includes.js.
 	this.init = function(){
-		for (var b in BRUSH_LIST){
-			if (BRUSH_LIST.hasOwnProperty(b)){
-				$("body").append($("<script>").attr("src", "src/brushes/" + BRUSH_LIST[b] + ".js").attr("type", "text/javascript"));
+		for (var b in BRUSH_INCLUDES){
+			if (BRUSH_INCLUDES.hasOwnProperty(b)){
+				$("body").append($("<script>").attr("src", "src/brushes/" + BRUSH_INCLUDES[b] + ".js").attr("type", "text/javascript"));
 			}
 		}
 		return this;

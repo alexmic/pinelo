@@ -4,19 +4,17 @@
  */
  
 palette.extend({
+	
 	web: {
             prevs: [],
-            max: 30,
+            max: 50,
             stroke: function(x, y) {
-                ctx.strokeStyle = "rgba(0,0,0,0.5)";
+                ctx.strokeStyle = "rgba(0,0,0,0.3)";
                 var p = this.prevs;
                 if (p[0]) {
-                    for (i = p.length, ctx.lineWidth = 0.5; i--;) {
+                    for (i = p.length, ctx.lineWidth = 0.3; i--;) {
                         var point = p[i];
-                        ctx.beginPath();
-                        ctx.moveTo(x, y);
-                        ctx.lineTo(point.x, point.y);
-                        ctx.stroke();
+                        Util.draw.line(x, point.x, y, point.y);
                         ctx.lineWidth = 0.1;
                     }
                 }
@@ -27,9 +25,15 @@ palette.extend({
                     y: y
                 });
             },
+            
+   			unload: function(){
+   				this._super.unload();
+   				this.prevs = [];
+   			},
 
             onMouseUp: function(e) {
                 this.prevs = [];
             }
       	}
+
 });
