@@ -15,7 +15,8 @@ palette.extend({
                     var dx = (p.x - x) / 2,
                         dy = (p.y - y) / 2,
                         dr = Math.sqrt(dx * dx + dy * dy);
-					Util.draw.circle(x + dx, y + dy, dr, true);
+			Util.draw.circle(x + dx, y + dy, dr, true);
+                        Util.draw.circle(x + dx, y + dy, dr, false);
                 }
                 this.prev = {
                     x: x,
@@ -25,6 +26,11 @@ palette.extend({
 
             onMouseUp: function(e) {
                 this.prev = null;
+            },
+
+            load: function(){
+                this._super.load();
+                ctx.fillStyle = 'rgba(0,0,0,0.6)';
             },
             
             unload: function(){
