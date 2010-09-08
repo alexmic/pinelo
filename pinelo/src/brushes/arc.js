@@ -17,7 +17,7 @@ palette.extend({
                  ctx.lineWidth = 0.1;
                  for (var i = p_l ; i--;) {
                      var p = this.points[i];
-                     var d = Util.math.d(x, p,x, y, p,y);
+                     var d = Util.math.d(x, p.x, y, p.y);
                      if (d < 35) {
                          Util.draw.line(x, p.x, y, p.y);
                      }
