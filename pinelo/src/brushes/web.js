@@ -7,7 +7,7 @@ palette.extend({
 	
 	web: {
             prevs: [],
-            max: 50,
+            max: 20,
             stroke: function(x, y) {
                 ctx.strokeStyle = "rgba(0,0,0,0.3)";
                 var p = this.prevs;
@@ -26,10 +26,10 @@ palette.extend({
                 });
             },
             
-   			unload: function(){
-   				this._super.unload();
-   				this.prevs = [];
-   			},
+   	    unload: function(){
+   	        this._super.unload();
+   		this.prevs = [];
+   	    },
 
             onMouseUp: function(e) {
                 this.prevs = [];

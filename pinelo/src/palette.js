@@ -20,18 +20,18 @@ var Palette = function() {
     // Generic Brush prototype.
     var Brush = function() {
 		
-		this._super = this;
+        this._super = this;
 		
         this.stroke = function(x, y) {
 
         };
 		
-		this.load = function(){
-			ctx.strokeStyle = 'rgba(0,0,0,0.7)';
-		};
+        this.load = function(){
+	    ctx.strokeStyle = 'rgba(0,0,0,0.7)';
+	};
 		
         this.unload = function() {
-			Util.context.reset();
+	    Util.context.reset();
         };
 
         this.onMouseUp = function(e) {
@@ -139,12 +139,13 @@ var Palette = function() {
         if (brushes[brushName]) {
             _brush.unload();
             _brush = brushes[brushName];
+            _brush.load();
         }
     };
 
     // Set default, generic brush.
     this.setDefaultBrush = function() {
-        _brush = brushes.def;
+        this.setBrush("def");
     };
 
     // Brush delegator methods.
@@ -165,7 +166,7 @@ var Palette = function() {
     };
 
     this.setEraser = function(e) {
-        _brush = brushes.eraser;
+        this.setBrush("eraser");
     };
 
 };
