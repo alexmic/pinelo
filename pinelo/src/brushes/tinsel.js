@@ -2,6 +2,7 @@
  *   Black faded-out tinsel with hints of fuchsia.
  *   Author: Alex Michael
  */
+
 palette.extend({
 	
 	tinsel: {
