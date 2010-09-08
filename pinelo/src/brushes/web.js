@@ -7,7 +7,7 @@ palette.extend({
 	
 	web: {
             prevs: [],
-            max: 50,
+            max: 30,
             stroke: function(x, y) {
                 ctx.strokeStyle = "rgba(0,0,0,0.3)";
                 var p = this.prevs;
