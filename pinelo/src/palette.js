@@ -23,7 +23,7 @@ var Palette = function() {
 		};
 		
         this.unload = function() {
-	    Util.context.reset();
+	  	  Util.context.unload();
         };
 
         this.onMouseUp = function(e) {
