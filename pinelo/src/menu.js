@@ -58,7 +58,8 @@ var Menu = function() {
 		});
 		
 		$("#export").click(function(e){
-			var imageData = ctx.getImageData(0,0, wWidth, wHeight);
+			
+			/*var imageData = ctx.getImageData(0,0, wWidth, wHeight);
 			var i_h = imageData.height;
 			var i_w = imageData.width;
 			for (var x = 0; x < i_h; x++){
@@ -81,6 +82,9 @@ var Menu = function() {
 				}
 			}
 			ctx.putImageData(imageData, 0, 0);
+			*/
+			
+			window.open(c.toDataURL("image/png"), 'export');
 		});
 		
 		// Eraser selection.

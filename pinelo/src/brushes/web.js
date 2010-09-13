@@ -28,10 +28,10 @@ palette.extend({
             
    	    unload: function(){
    	        this._super.unload();
-   		this.prevs = [];
+   			this.prevs = [];
    	    },
 
-            onMouseUp: function(e) {
+        onMouseUp: function(e) {
                 this.prevs = [];
             }
       	}

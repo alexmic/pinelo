@@ -17,8 +17,13 @@ var M    = Math,
 var Util = {
 	
 	context: {
-	
+		
 		reset : function(){
+		
+		
+		},
+		
+		unload : function(){
 			ctx.lineWidth = 1;
 			ctx.globalAlpha = 1;
 			// For now until the menu is created.
