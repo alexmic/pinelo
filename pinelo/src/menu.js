@@ -20,10 +20,6 @@ var Menu = function() {
 		
 		//Put default and rest of the brushes.
 		var i = 0;
-		$("#brushes")
-		.append($("<input>").attr({index: i++, type: "radio", id: "@_def", name: "brushset", checked: "checked"}))
-		.append($("<label>").attr("for","@_def").html("default"));
-
 		for (var b in BRUSH_INCLUDES){
 			if (BRUSH_INCLUDES.hasOwnProperty(b)){
 			    var brush = BRUSH_INCLUDES[b];
@@ -32,7 +28,11 @@ var Menu = function() {
 				.append($("<label>").attr("for","@_" + brush).html(brush));
 			}
 		}
-		
+        
+        //whoa... weird. You have to escape (double escape?) @ symbols here, otherwise you get
+        //a syntax error. Strangely, \\#@_blah is also acceptable, but doesn't return the same value
+        $("#\\@_simple").attr({checked: "checked"});
+
 		// JQuery UI buttonset.	
 		$("#brushes").buttonset();
 		$("#eraser").buttonset();
@@ -42,19 +42,15 @@ var Menu = function() {
 		// Select brush according to index.
 		$("#brushes input").click(function(e){
 			var index = $(this).attr("index");
+            console.log(index);
 			that.currentIndex = parseFloat(index);
-			if (that.currentIndex === 0){
-				palette.setDefaultBrush();
-			}
-			else{
-				palette.setBrush(BRUSH_INCLUDES[that.currentIndex - 1]);
-			}
+			palette.setBrushByName(BRUSH_INCLUDES[that.currentIndex]);
+
 		});
 		
 		// Eraser selection.
-		$("#reset").click(function(e){
-			ctx.fillStyle = BACKGROUND_COLOR;
-    		ctx.fillRect(0, 0, wWidth, wHeight);
+		$("#reset").click(function(){
+            palette.reset();
 		});
 		
 		$("#export").click(function(e){
@@ -97,10 +93,9 @@ var Menu = function() {
     		
     		if (e.keyCode === 65){
     			that.currentIndex--;
-    			if (that.currentIndex < 0){ that.currentIndex += BRUSH_INCLUDES.length + 1; }
-    		}
-    		else if (e.keyCode === 83){
-    			that.currentIndex = (that.currentIndex + 1) % (BRUSH_INCLUDES.length + 1);
+                if (!~that.currentIndex) that.currentIndex = BRUSH_INCLUDES.length-1;
+    		}else if (e.keyCode === 83){
+    			that.currentIndex = (that.currentIndex + 1) % (BRUSH_INCLUDES.length);
     		}
     		
     		$("#brushes label")
@@ -108,18 +103,14 @@ var Menu = function() {
     			.removeClass("ui-state-active")
     			.addClass("ui-state-default");
 
-    		if (that.currentIndex === 0){
-    			var brush = "def";
-    		}
-    		else{
-    			brush = BRUSH_INCLUDES[that.currentIndex - 1]
-    		}
+   			brush = BRUSH_INCLUDES[that.currentIndex]
+
     		$("#brushes label[for~='@_" + brush + "']")
     			.attr("aria-pressed", "true")
     			.removeClass("ui-state-default")
     			.addClass("ui-state-active");
     			
-    		$("#brushes input[index=" + that.currentIndex + "]").click();
+            palette.setBrushByName(brush);
     	
     	});
 		

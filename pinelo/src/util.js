@@ -40,24 +40,6 @@ var Util = {
 			return M.sqrt(pow(dx, 2) + pow(dy, 2));
 		}
 	
-	},
-	
-	draw: {
-	
-		line: function(x1, x2, y1, y2){
-			ctx.beginPath();
-       		ctx.moveTo(x1, y1);
-        	ctx.lineTo(x2, y2);
-        	ctx.stroke();
-		},
-		
-		circle: function(x, y, r, fill){
-			ctx.beginPath();
-            ctx.arc(x, y, r, 0, Math.PI * 2, true);
-            ctx.closePath();
-            if (fill){ ctx.fill(); } else { ctx.stroke(); }
-		}
 	}
-
 
 }

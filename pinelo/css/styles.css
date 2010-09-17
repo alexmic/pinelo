@@ -2,20 +2,14 @@ body{
 	overflow:hidden;
 }
 
-#c, #c:hover, #c:active{
-	cursor: crosshair;
-}
-
 .toolbox{
-	position:absolute;
 	height: 30px;
 	padding: 2px;
 	width:100%;
 	-webkit-border-radius: 0px 0px 5px 5px;
 	-moz-border-radius: 0px 0px 5px 5px;
 	border-radius: 0px 0px 5px 5px;
-	top: 0px;
-	padding: 8px 0px 2px 0px;
+	padding: 6px 0px 2px 0px;
 }
 
 #tools-shadow{
@@ -30,11 +24,41 @@ body{
 	left:0;
 }
 
-	#tools div.toolbox-ph{
-		list-style-image: none;
-		list-style-type: none;
-		margin:0px 3px 0px 3px;
-		padding:0px 3px 0px 3px;
-		position:relative;
-		float:left;
-	}	
+#tools div.toolbox-ph{
+	list-style-image: none;
+	list-style-type: none;
+	margin:0px 3px 0px 3px;
+	padding:0px 3px 0px 3px;
+	position:relative;
+	float:left;
+}
+
+#main{
+    height: 500px; /* temporary */
+    padding-right: 255px;
+    position: relative;
+}
+
+#options{
+    position: absolute;
+    width: 250px;
+    height: 100%;
+    top:0;
+    right:0;
+    border: 1px solid #999;
+}
+
+#canvii{
+    cursor: crosshair;
+    height:100%;
+    width: 100%;
+    position:relative;
+    border: 1px solid black;
+    overflow: hidden;
+}
+
+#footer{
+    border: 1px solid #ccc;
+    background-color: #fafafa;
+    margin-top: 3px;
+}
