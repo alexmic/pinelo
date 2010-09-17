@@ -63,7 +63,7 @@ var ShortTermMemoryBrush = MemoryBrush.extend({
 
 
 var DefaultBrush = Brush.extend({
-	name: "Default Brush",
+	name: "simple",
 	stroke: function(surface,x,y){
 		if (this.previous){
 			var p = this.previous;
@@ -72,11 +72,11 @@ var DefaultBrush = Brush.extend({
 	}
 });
 
-var Eraser = DefaultBrush.extend({
+var Eraser = Brush.extend({
 	
 	init: function(){
-		this.brushSize = 10;
-		this.maxPoints = 0;
+		this.brushSize = 20;
+		this.max = 0;
 	},
 	
 	stroke: function(surface,x,y){

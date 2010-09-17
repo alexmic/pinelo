@@ -28,7 +28,11 @@ var Menu = function() {
 				.append($("<label>").attr("for","@_" + brush).html(brush));
 			}
 		}
-		
+        
+        //whoa... weird. You have to escape (double escape?) @ symbols here, otherwise you get
+        //a syntax error. Strangely, \\#@_blah is also acceptable, but doesn't return the same value
+        $("#\\@_simple").attr({checked: "checked"});
+
 		// JQuery UI buttonset.	
 		$("#brushes").buttonset();
 		$("#eraser").buttonset();

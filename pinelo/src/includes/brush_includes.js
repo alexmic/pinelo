@@ -7,4 +7,4 @@
  */
  
  var BRUSH_INCLUDES 
-     = ["default","web", "roots", "tinsel", "bubbles", "cocentric", "circles", "arc", "sketch"];
+     = ["simple","web", "roots", "tinsel", "bubbles", "cocentric", "circles", "arc", "sketch"];

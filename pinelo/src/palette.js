@@ -16,11 +16,11 @@ var Palette = Class.extend({
 		this.layerset.createNew().select();
 		this.layerset.resize();
 		
-		this.brushset.default = new DefaultBrush();
+		this.brushset.simple = new DefaultBrush();
 		this.brushset.eraser = new Eraser();
 		this.loadAvailableBrushes();
 		
-		this.brush = this.brushset.default;
+		this.brush = this.brushset.simple;
 		this.brush.load();
 		
 		/* wire up handlers */
@@ -44,7 +44,7 @@ var Palette = Class.extend({
 	/* Loads available brushes from brush_includes.js */
 	loadAvailableBrushes: function(){
 		for (var b in BRUSH_INCLUDES){
-			if (BRUSH_INCLUDES.hasOwnProperty(b)){
+			if (b > 0 && BRUSH_INCLUDES.hasOwnProperty(b)){
 				$.getScript("src/brushes/" + BRUSH_INCLUDES[b] + ".js");
 			}
 		}
