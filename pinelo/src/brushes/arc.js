@@ -4,7 +4,7 @@
  */
 
 palette.createBrush(MemoryBrush.extend({
-	name: "sketch",
+	name: "arc",
 	stroke: function(surface,x,y) {
 		var ctx = surface.ctx;
 		ctx.lineWidth = 0.5;

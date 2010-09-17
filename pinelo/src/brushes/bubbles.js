@@ -17,11 +17,5 @@ palette.createBrush(Brush.extend({
             layer.circle(x + dx, y + dy, dr, true);
             layer.circle(x + dx, y + dy, dr, false);
 	    }
-	},
-
-	load: function(){
-	    this._super();
-	    
 	}
-
 }));

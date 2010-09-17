@@ -85,10 +85,9 @@ var Menu = function() {
     		
     		if (e.keyCode === 65){
     			that.currentIndex--;
-    			if (that.currentIndex < 0){ that.currentIndex += BRUSH_INCLUDES.length + 1; }
-    		}
-    		else if (e.keyCode === 83){
-    			that.currentIndex = (that.currentIndex + 1) % (BRUSH_INCLUDES.length + 1);
+                if (!~that.currentIndex) that.currentIndex = BRUSH_INCLUDES.length-1;
+    		}else if (e.keyCode === 83){
+    			that.currentIndex = (that.currentIndex + 1) % (BRUSH_INCLUDES.length);
     		}
     		
     		$("#brushes label")
@@ -96,18 +95,14 @@ var Menu = function() {
     			.removeClass("ui-state-active")
     			.addClass("ui-state-default");
 
-    		if (that.currentIndex === 0){
-    			var brush = "def";
-    		}
-    		else{
-    			brush = BRUSH_INCLUDES[that.currentIndex - 1]
-    		}
+   			brush = BRUSH_INCLUDES[that.currentIndex]
+
     		$("#brushes label[for~='@_" + brush + "']")
     			.attr("aria-pressed", "true")
     			.removeClass("ui-state-default")
     			.addClass("ui-state-active");
     			
-    		$("#brushes input[index=" + that.currentIndex + "]").click();
+            palette.setBrushByName(brush);
     	
     	});
 		
