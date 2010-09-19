@@ -13,6 +13,14 @@ var Layer = Class.extend({
             return this;
         },
         
+        setOpacity: function(alpha){
+        	this.ctx.globalAlpha = alpha;
+        },
+        
+        setLineWidth: function(value){
+        	this.ctx.lineWidth = value;
+        },
+        
         line: function(x1, x2, y1, y2){
 			var c = this.ctx;
 			c.beginPath();
@@ -32,7 +40,10 @@ var Layer = Class.extend({
         
         select: function(){
         	this.parent.setPaintSurface(this);
-        }
+        },
+        
+        save: function(){ this.ctx.save(); },
+        restore: function(){ this.ctx.restore(); },
 });
 
 var LayerSet = Class.extend({

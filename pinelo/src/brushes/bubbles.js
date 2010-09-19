@@ -4,11 +4,15 @@
  */
 palette.createBrush(Brush.extend({
 	name: 'bubbles',
+	init: function(){
+		this._super();
+		this.settings.thickness.value(3.5);
+		this.settings.fillalpha = new Range("Fill Alpha", 0,100).value(95);
+	},
 	stroke: function(layer,x, y) {
 		var ctx = layer.ctx;
-	    ctx.lineWidth = 1;
 	    ctx.strokeStyle = "rgba(0,0,0,0.8)";
-	    ctx.fillStyle = 'rgba(0,0,0,0.6)';
+	    ctx.fillStyle = 'rgba(60,60,60,'+ this.settings.fillalpha.value()/100 +')';//quick dirty hack. Need to generalise for this kind of thing
 	    var p = this.previous;
 	    if (p) {
 	        var dx = (p.x - x) / 2,

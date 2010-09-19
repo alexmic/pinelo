@@ -28,7 +28,7 @@ palette.createBrush(Brush.extend({
 		
 		var p = this.previous;
 		if (p){
-		    layer.ctx.lineWidth = 1.5;
+			layer.setLineWidth(this.settings.thickness.value());
 		    layer.line(p.x, x, p.y, y);
 		    this.points.push({
 		        x: x,

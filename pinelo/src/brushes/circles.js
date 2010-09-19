@@ -5,6 +5,10 @@
 
 palette.createBrush(Brush.extend({
 	name: 'circles',
+	init: function(){
+		this._super();
+		this.settings.thickness.hide();
+	},
     stroke: function(layer, x, y) {
     	var p = this.previous;
     	if (p){

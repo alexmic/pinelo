@@ -39,7 +39,17 @@ body{
     position: relative;
 }
 
+.option{
+	margin: 4px 10px;
+	margin-bottom: 6px;
+	
+}
 #options{
+	margin-top:10px;
+}
+#option_container{
+    font-family: Verdana; 
+    font-size: 10px;
     position: absolute;
     width: 250px;
     height: 100%;
