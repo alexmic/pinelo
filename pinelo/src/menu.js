@@ -85,7 +85,7 @@ var Menu = function() {
 		
 		// Eraser selection.
 		$("#eraser input").click(function(e){
-			palette.setEraser();
+			palette.setBrushByName("eraser"); /* probably needs to change pretty soon */
 		});
 		
 		// Can also navigate with keyboard A and S.
@@ -96,7 +96,10 @@ var Menu = function() {
                 if (!~that.currentIndex) that.currentIndex = BRUSH_INCLUDES.length-1;
     		}else if (e.keyCode === 83){
     			that.currentIndex = (that.currentIndex + 1) % (BRUSH_INCLUDES.length);
+    		}else {
+    			return;
     		}
+    		
     		
     		$("#brushes label")
     			.attr("aria-pressed", "false")

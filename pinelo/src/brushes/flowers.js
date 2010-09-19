@@ -7,9 +7,9 @@ palette.createBrush(Brush.extend({
 	name: 'flowers',
     stroke: function(layer, x, y) {
         var ctx = layer.ctx;
-        ctx.lineWidth = 3;
-        ctx.strokeStyle = "rgba(0,0,0,1)";
-        ctx.fillStyle = "rgba(0,0,0,1)";
+        
+        ctx.strokeStyle = "rgb(0,0,0)";
+        ctx.fillStyle = "rgb(0,0,0)";
         
         var p = this.previous;
         if (p) {
@@ -41,7 +41,7 @@ palette.createBrush(Brush.extend({
                     ny = y + yyy;
                 ctx.arc(nx, ny, 7, 0, M.PI * 2, true);
                 ctx.fill();
-                ctx.fillStyle = "rgba(255,0,255,1)";
+                ctx.fillStyle = "rgb(255,0,255)";
                 for (var i = 0; i < 5; i++){
                     ctx.beginPath();
                     var a  = i * ((72 * 2 * M.PI) / 360); 

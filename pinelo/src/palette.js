@@ -5,9 +5,12 @@
 
 var Palette = Class.extend({
 	brushset: {},
-	layerset: {},
-	brush: {},
-	frame: {},
+	layerset: null,
+	brush: null,
+	frame: null,
+	
+	foreground: '#000000',
+	background: '#FFFFFF',
 	
 	init: function(frame){
 		this.frame = frame;
@@ -16,12 +19,13 @@ var Palette = Class.extend({
 		this.layerset.createNew().select();
 		this.layerset.resize();
 		
-		this.brushset.simple = new DefaultBrush();
+		var simpleBrush = this.createBrush(DefaultBrush);
+		this.brushset.simple = simpleBrush; 
 		this.brushset.eraser = new Eraser();
 		this.loadAvailableBrushes();
 		
-		this.brush = this.brushset.simple;
-		this.brush.load();
+		this.setBrush(simpleBrush);
+		
 		
 		/* wire up handlers */
 		var me = this;
@@ -36,7 +40,7 @@ var Palette = Class.extend({
 		var offsety = frame.offset().top;
 		proxy.mousemove(function(e){
 			if (me.brush.painting){
-				me.brush.doStroke(me.layerset.surface, e.clientX-offsetx,e.clientY-offsety);
+				me.brush.doStroke(me.surface(), e.clientX-offsetx,e.clientY-offsety);
 			}
 		});
 	},
@@ -52,25 +56,65 @@ var Palette = Class.extend({
 	
 	createBrush: function(brushClass){
 		var brush = new brushClass();
-		console.log('created brush',brush.name);
 		this.brushset[brush.name] = brush;
+		var me = this;
+		
+		/* hook up brush control callbacks */
+		var setOpacity = function(){
+			var v = brush.settings.opacity.value();
+			me.surface().setOpacity(v/100);
+		};
+		var setLineWidth = function(){
+			var v = brush.settings.thickness.value();
+			me.surface().setLineWidth(v);
+		};
+		
+		brush.onload(setOpacity);
+		brush.onload(setLineWidth);
+		brush.settings.opacity.onchange(setOpacity);
+		brush.settings.thickness.onchange(setLineWidth);
+		
+		console.log('created brush',brush.name);
+		return brush;
 	},
 	
 	setBrush: function(b){
-		console.log('setting brush to',b.name)
-		this.brush.unload();
+		
+		// Keep the state-stack persistent at depth 1
+		this.surface().restore(); 
+		this.surface().save();
+		// I know it looks odd :)
+		
+		if (this.brush) this.brush.unload();
+		if (!b) return;
+		console.log('setting brush to',b.name);
 		this.brush = b;
 		this.brush.load();
+		this.createBrushControls();
 	},
 	
 	setBrushByName: function(name){
 		this.setBrush(this.brushset[name]);
 	},
 	
+	createBrushControls: function(){
+		$('#options').empty();
+		for (var s in this.brush.settings) {
+			this.brush.settings[s].renderInto($('#options'));
+		}
+	},
+	
+	/* returns the current drawing surface (layer) */
+	surface: function(){
+		return this.layerset.surface;
+	},
+	
 	reset: function(){
 		this.layerset.removeAll();
 		this.layerset.createNew().select();
 		this.layerset.resize();
+		
+		this.brush.load();
 	}
 	
 });

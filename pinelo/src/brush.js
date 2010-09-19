@@ -1,10 +1,24 @@
 var Brush = Class.extend({
 	name: "unnamed",
-	brushSize: 1,
+	settings: null, /* hash of Setting objects */
+	_onloadCallbacks: null,
 	
-	init: function(){},
+	init: function(){
+		this._onloadCallbacks = [];
 	
-	load: function(){},
+		/* default brush settings */
+		this.settings = {
+			opacity : new Range('Opacity',1,100).value(100),
+			thickness : new Range('Thickness',0.5,5).step(0.5).value(1.5),
+		};
+	},
+	
+	load: function(){
+		$(this._onloadCallbacks).each(function(i, callback){
+			callback();
+		})
+	},
+	
 	doStroke: function(s,x,y){
 		this.stroke(s,x,y);
 		this.previous = {x:x,y:y};
@@ -15,12 +29,16 @@ var Brush = Class.extend({
 	onMouseUp: function(e) {
 		this.painting = false;
 		this.previous = null;
-		console.log(this.name + " stopped painting");
 	},
     onMouseDown: function(e) {
     	this.painting = true;
-    	console.log(this.name + " started painting");
-	}
+	},
+	
+	/* this function (more of an API method) is ONLY used to register per-brush callbacks!! */
+	/* not to be confused with load(), which is garunteed to be called for every brush load */
+	onload: function(callback){
+		this._onloadCallbacks.push(callback);
+	},
     
 });
 
@@ -35,6 +53,7 @@ var MemoryBrush = Brush.extend({
 	
 	init: function(){
 		this.points = [];
+		this._super();
 	},
 
 	doStroke: function(s,x,y){
@@ -55,7 +74,6 @@ var MemoryBrush = Brush.extend({
 var ShortTermMemoryBrush = MemoryBrush.extend({
 	onMouseUp: function(e){
 		this.points = [];
-		this.previous = null;
 		this._super(e);
 	}
 });
@@ -64,10 +82,10 @@ var ShortTermMemoryBrush = MemoryBrush.extend({
 
 var DefaultBrush = Brush.extend({
 	name: "simple",
-	stroke: function(surface,x,y){
+	stroke: function(layer,x,y){
 		if (this.previous){
 			var p = this.previous;
-			surface.line(p.x,x,p.y,y);
+			layer.line(p.x,x,p.y,y);
 		}
 	}
 });
@@ -75,12 +93,12 @@ var DefaultBrush = Brush.extend({
 var Eraser = Brush.extend({
 	
 	init: function(){
-		this.brushSize = 20;
-		this.max = 0;
+		this._super();
+		this.settings.thickness.value(5);
 	},
 	
-	stroke: function(surface,x,y){
-		var h = this.brushSize>>1;
-		surface.clearRect(x-h, y-h, x+h, y+h);
+	stroke: function(layer,x,y){
+		var h = this.settings.thickness.value()*12;
+		layer.ctx.clearRect(x-h, y-h, 2*h, 2*h);
 	}
 });
