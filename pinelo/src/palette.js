@@ -16,9 +16,11 @@ var Palette = Class.extend({
 		this.frame = frame;
 		
 		this.layerset = new LayerSet(frame);
-		this.layerset.createNew().select();
-		this.layerset.resize();
-		
+		var backgroundLayer = this.layerset.createNew();
+		backgroundLayer.setName("Background");
+
+	    this.createLayerControls();
+
 		var simpleBrush = this.createBrush(DefaultBrush);
 		this.brushset.simple = simpleBrush; 
 		this.brushset.eraser = new Eraser();
@@ -104,6 +106,21 @@ var Palette = Class.extend({
 		}
 	},
 	
+  createLayerControls: function(){
+    var layerset = this.layerset;	
+
+	var addLayer = function(layer){
+		$('#layers').prepend(layer.getControl());
+	};
+
+	//add background layer
+	addLayer(layerset.layers[0]);
+	
+    $('#newLayer').click( function(){
+		addLayer(layerset.createNew());
+	  });
+    
+  },
 	/* returns the current drawing surface (layer) */
 	surface: function(){
 		return this.layerset.surface;

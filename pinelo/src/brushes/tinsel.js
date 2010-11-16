@@ -15,6 +15,7 @@ palette.createBrush(Brush.extend({
 		this.settings.opacity.disable();
 		this.settings.thickness.value(0.5);
 		this.settings.radius = new Range("Radius",20,150).step(10).value(60);
+		this.settings.pinkness = new Range("Pinkness",1,10).value(1);
 		
 	},
     stroke: function(layer, x, y) {
@@ -25,7 +26,7 @@ palette.createBrush(Brush.extend({
                 dy = y + r * sin(i * 0.0174),
             	grad = layer.ctx.createLinearGradient(x, y, dx, dy);
         	
-            grad.addColorStop(0, (rnd() > 0.9)?'#E50D9B':'#000000');
+            grad.addColorStop(0, (rnd() > 1 - (this.settings.pinkness.value() / 10))?'#E50D9B':'#000000');
             grad.addColorStop(1, '#FAF2D4');
             layer.ctx.strokeStyle = grad;
             layer.line(x, dx, y, dy);

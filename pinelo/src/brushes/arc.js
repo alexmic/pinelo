@@ -9,6 +9,7 @@ palette.createBrush(MemoryBrush.extend({
 		this._super();
 		this.settings.thickness.value(0.5);
 		this.settings.dist = new Range('Agressiveness',10,100).step(5).value(30);
+		this.settings.foobar = new Range('FooBar',1,10);
 	},
 	stroke: function(layer,x,y) {
 		var ctx = layer.ctx;
